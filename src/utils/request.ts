@@ -4,7 +4,7 @@ import axios from "axios";
 
 //创建一个axios实例
 const request = axios.create({
-    baseURL: '',
+    baseURL: 'http://localhost:8089/',
     timeout: 20000,
 });
 
@@ -20,8 +20,8 @@ request.interceptors.request.use(
         config.headers['token'] = localStorage.getItem('token') || ''
 
         // 在发送请求之前做些什么
-        // console.log('我要准备请求啦------')
-        // console.log(config, '请求配置')
+        console.log('我要准备请求啦------')
+        console.log(config, '请求配置')
         
         return config;
     },
@@ -35,9 +35,9 @@ request.interceptors.request.use(
 request.interceptors.response.use(
     function (response) {
         // 对响应数据做点什么
-        // console.log('我接收到响应数据啦------')
-        // console.log(response, '响应配置')
         if (response.status === 200) {
+            console.log('我接收到响应数据啦------')
+            console.log(response.data, '响应配置')
             return Promise.resolve(response.data)
         } else {
             return Promise.reject(response)

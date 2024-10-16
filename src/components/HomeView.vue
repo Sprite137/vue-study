@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 <template>
+  <!-- 走马灯 -->
   <div class="carousel">
     <el-carousel height="150px">
       <el-carousel-item v-for="item in items" :key="item.id">
@@ -9,7 +9,7 @@
   </div>
 
   
-
+  <!-- 搜索栏 -->
   <div class="search">
     <el-autocomplete
       v-model="state"
@@ -19,9 +19,10 @@
   />
   </div>
 
-  <h1>{{ testAxios }}</h1>
+  <!-- 测试axios -->
+  <!-- <h1>{{ testAxios }}</h1> -->
 
-  <!-- <div>
+  <div>
     <RouterLink to="/home">测试跳转HomeView</RouterLink>
     <RouterLink to="/detail">测试跳转DetailView</RouterLink>
   </div>
@@ -29,44 +30,32 @@
   <div>
     <button @click="changeHomeView">按钮跳转home</button>
     <button @click="changeDetailView">按钮跳转detail</button>
-  </div> -->
+  </div>
     
 </template>
 
 <script lang="ts">
   export default {
-      name:"PersonView",
+      name:"HomeView",
 
   }
   </script>
 
 <script lang="ts" setup>
-  import { onBeforeMount ,onMounted, ref,reactive } from 'vue'
-  import axios from 'axios';
-  import {type Books} from '../base'
-  import {login,getUserInfo} from "../api/user"
+  import {onMounted, ref} from 'vue'
+  import {type BookItem, type BakckendBookItem, type BookItems} from '../base'
+  import { RouterLink } from 'vue-router';
   import router from '@/router'
-
-  onBeforeMount(async () => {
-  // 登录
-  const user = await login({
-    username: 'admin',
-    password: '123456789'
-  })
-  console.log(user)
-  
-  // 获取用户信息
-  const users = await getUserInfo()
-  console.log(users)
-})
+  import {hotBooks} from "@/api/book"
 
 
+
+  // 走马灯图片
   const items =  [
       { id:1,src: getImageUrl("1") },
       { id:2,src: getImageUrl("2") },
       { id:3,src: getImageUrl("3") },
   ]
-
 
   function getImageUrl(name:string) {
     return new URL(`/src/assets/imgs/${name}.jpg`, import.meta.url).href
@@ -76,60 +65,36 @@
 
   const state = ref('')
 
-  interface LinkItem {
-    value: string
-    link: string
-  }
 
-  const links = ref<LinkItem[]>([])
+  const searchTips = ref<BookItems>([])
 
   const loadAll = () => (
     [
-      { value: 'vue', link: 'https://github.com/vuejs/vue' },
-      { value: 'element', link: 'https://github.com/ElemeFE/element' },
-      { value: 'cooking', link: 'https://github.com/ElemeFE/cooking' },
-      { value: 'mint-ui', link: 'https://github.com/ElemeFE/mint-ui' },
-      { value: 'vuex', link: 'https://github.com/vuejs/vuex' },
-      { value: 'vue-router', link: 'https://github.com/vuejs/vue-router' },
-      { value: 'babel', link: 'https://github.com/babel/babel' },
+      { value: 'vue', author: 'https://github.com/vuejs/vue' },
+      { value: 'element', author: 'https://github.com/ElemeFE/element' },
+      { value: 'cooking', author: 'https://github.com/ElemeFE/cooking' },
+      { value: 'mint-ui', author: 'https://github.com/ElemeFE/mint-ui' },
+      { value: 'vuex', author: 'https://github.com/vuejs/vuex' },
+      { value: 'vue-router', author: 'https://github.com/vuejs/vue-router' },
+      { value: 'babel', author: 'https://github.com/babel/babel' },
     ])
 
-    let testAxios = reactive<Books>([
-      {id:1, title:"aaa", author :"aaa"},
-      {id:2, title:"bbb", author :"bbb"},
-    ])
-  
-                      
-
-
-  const fetchData = async () => {
-    try {
-      axios.get('http://localhost:8089/book/test').then(
-        response =>{
-          testAxios = response.data
-          console.log(response.data)
-        }
-      );
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }
-  onMounted(fetchData);
 
   let timeout: ReturnType<typeof setTimeout>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const querySearchAsync = (queryString: string, cb: (arg: any) => void) => {
     const results = queryString
-      ? links.value.filter(createFilter(queryString))
-      : links.value
+      ? searchTips.value.filter(createFilter(queryString))
+      : searchTips.value
 
     clearTimeout(timeout)
     timeout = setTimeout(() => {
       cb(results)
     }, 3000 * Math.random())
   }
+
   const createFilter = (queryString: string) => {
-    return (restaurant: LinkItem) => {
+    return (restaurant: BookItem) => {
       return (
         restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
       )
@@ -139,11 +104,45 @@
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSelect = (item: Record<string, any>) => {
     console.log(item)
+    router.push("/detail")
+  }
+
+  async function fetchDataAndConvert() {
+    try {
+      const response = await hotBooks()
+      searchTips.value = convertBooksToData(response);
+    } catch (error) {
+      console.error('Failed to fetch data:', error);
+    }
   }
 
   onMounted(() => {
-    links.value = loadAll()
-  })        
+    searchTips.value = loadAll()
+    fetchDataAndConvert()
+    console.log(searchTips)
+  })
+
+  
+
+  function changeHomeView(){
+    router.push("/home")
+  }
+
+  function changeDetailView(){
+    router.push("/detail")
+  }
+
+
+  
+
+  function convertBooksToData(books: BakckendBookItem[]): BookItems {
+    return books.map(book => ({
+      value: book.title,
+      author: book.author
+    }));
+  }
+
+        
     
 </script>
 

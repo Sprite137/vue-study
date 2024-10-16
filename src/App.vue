@@ -16,18 +16,16 @@
 </template> -->
 <template>
   <div class="app">
-    <!-- <h1>hello</h1> -->
-    <Person></Person>
+    <RouterView></RouterView>
   </div>
+  
 </template>
 
 <script lang="ts">
-  import Person from './components/Person.vue';
 
-  export default{
+  export default {
     name:"app",
     components:{
-      Person
     }
   }
 </script>
