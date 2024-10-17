@@ -29,44 +29,57 @@
     </div>
 
 
-  <div class = 'content'>
-    <div class = 'content-1'>
-      <span >
-        <img src="@/assets/imgs/2.jpg" class = "content-1-img">
-      </span>
-    </div>
+    <div class = 'content'>
+      <div class = 'content-book'>
+        <span >
+          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+        </span>
+      </div>
 
-    <div class = 'content-2'>
-      
-    </div>
+      <div class = 'content-book'>
+        <span >
+          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+        </span>
+      </div>
 
-    <div class = 'content-3'>
-      
-    </div>
+      <div class = 'content-book'>
+        <span >
+          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+        </span>
+      </div>
 
-    <div class = 'content-4'>
-      
-    </div>
+      <div class = 'content-book'>
+        <span >
+          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+        </span>
+      </div>
 
-    <div class = 'content-5'>
-      
-    </div>
+      <div class = 'content-book'>
+        <span >
+          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+        </span>
+      </div>
 
-    <div class = 'content-6'>
-      
-    </div>
+      <div class = 'content-book'>
+        <span >
+          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+        </span>
+      </div>
 
-    <div class = 'content-7'>
-      
-    </div>
+      <div class = 'content-book'>
+        <span >
+          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+        </span>
+      </div>
 
-    <div class = 'content-8'>
-      
+      <div class = 'content-book'>
+        <span >
+          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+        </span>
+      </div>
+    
     </div>
-
   </div>
-  </div>
-  
 </template>
 
 <script lang="ts">
@@ -284,15 +297,29 @@
 
   .content{
     /* background-color: aquamarine; */
+    display: grid;
+    grid-template-columns: auto auto auto auto;
     position: absolute;
     top: 30%;
     left: 10%;
     right: 10%;
     height: 60%;
     border-radius: 25px;
+    background-color: #475669;
   }
 
-  .content-1{
+  .content-book{
+    background-color: aqua;
+    position:relative;
+    left: 10%;
+    right: 10%;
+    width: 80%;
+    top: 15%;
+    height: 70%;
+    border-radius: 10px;
+  }
+
+  /* .content-1{
     background-color:#475669;
     position: absolute;
     top: 5%;
@@ -370,7 +397,7 @@
     width: 15%;
     height: 40%;
     border-radius: 10px;
-  }
+  } */
 
   .content-1-img{
     background-color:aqua;
