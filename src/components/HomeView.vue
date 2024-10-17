@@ -1,37 +1,34 @@
 <template>
-  <!-- 走马灯 -->
-  <div class="carousel">
-    <el-carousel height="150px">
-      <el-carousel-item v-for="item in items" :key="item.id">
-       <img :src="item.src">
-      </el-carousel-item>
-    </el-carousel>
-  </div>
-
-  
-  <!-- 搜索栏 -->
-  <div class="search">
-    <el-autocomplete
-      v-model="state"
-      :fetch-suggestions="querySearchAsync"
-      placeholder="Please input"
-      @select="handleSelect"
-  />
-  </div>
-
-  <!-- 测试axios -->
-  <!-- <h1>{{ testAxios }}</h1> -->
-
   <div>
-    <RouterLink to="/home">测试跳转HomeView</RouterLink>
-    <RouterLink to="/detail">测试跳转DetailView</RouterLink>
-  </div>
+    <div class="bg-image"></div>
+    <!-- 走马灯 -->
+    <!-- <div class="carousel">
+      <el-carousel height="150px">
+        <el-carousel-item v-for="item in items" :key="item.id">
+        <img :src="item.src">
+        </el-carousel-item>
+      </el-carousel>
+    </div> -->
 
-  <div>
-    <button @click="changeHomeView">按钮跳转home</button>
-    <button @click="changeDetailView">按钮跳转detail</button>
-  </div>
+    <div class="github-link">
+      <a href = "https://github.com/Sprite137" target="_blank">
+        <el-icon :size="20"><Bicycle/></el-icon>
+      </a>
+    </div>
     
+    
+    
+    <!-- 搜索栏 -->
+    <div class="search">
+      <el-autocomplete
+        v-model="state"
+        :fetch-suggestions="querySearchAsync"
+        placeholder="Please input"
+        @select="handleSelect"
+    />
+    </div>
+  </div>
+  
 </template>
 
 <script lang="ts">
@@ -44,22 +41,21 @@
 <script lang="ts" setup>
   import {onMounted, ref} from 'vue'
   import {type BookItem, type BakckendBookItem, type BookItems} from '../base'
-  import { RouterLink } from 'vue-router';
   import router from '@/router'
   import {hotBooks} from "@/api/book"
 
 
 
   // 走马灯图片
-  const items =  [
-      { id:1,src: getImageUrl("1") },
-      { id:2,src: getImageUrl("2") },
-      { id:3,src: getImageUrl("3") },
-  ]
+  // const items =  [
+  //     { id:1,src: getImageUrl("1") },
+  //     { id:2,src: getImageUrl("2") },
+  //     { id:3,src: getImageUrl("3") },
+  // ]
 
-  function getImageUrl(name:string) {
-    return new URL(`/src/assets/imgs/${name}.jpg`, import.meta.url).href
-  } 
+  // function getImageUrl(name:string) {
+  //   return new URL(`/src/assets/imgs/${name}.jpg`, import.meta.url).href
+  // } 
 
   
 
@@ -90,7 +86,7 @@
     clearTimeout(timeout)
     timeout = setTimeout(() => {
       cb(results)
-    }, 3000 * Math.random())
+    }, 300 * Math.random())
   }
 
   const createFilter = (queryString: string) => {
@@ -109,7 +105,7 @@
 
   async function fetchDataAndConvert() {
     try {
-      const response = await hotBooks()
+      const response = await hotBooks({})
       searchTips.value = convertBooksToData(response);
     } catch (error) {
       console.error('Failed to fetch data:', error);
@@ -122,15 +118,6 @@
     console.log(searchTips)
   })
 
-  
-
-  function changeHomeView(){
-    router.push("/home")
-  }
-
-  function changeDetailView(){
-    router.push("/detail")
-  }
 
 
   
@@ -148,6 +135,8 @@
 
 <style>
 
+  
+
   body, html {
     margin: 0;
     padding: 0;
@@ -155,6 +144,18 @@
 
   .carousel {
     position: relative; 
+  }
+
+  .app{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
   }
 
   .carousel{
@@ -214,6 +215,34 @@
   .my-autocomplete li .highlighted .addr {
     color: #ddd;
   }
+
+  .bg-image {
+    background-image: url('@/assets/imgs/1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* 确保背景图片在其他元素之下 */
+  }
+
+  .github-link{
+    position: absolute; /* 或者使用 absolute, fixed 等 */
+    right: 1%;
+    width: 100px; /* 设置宽度 */
+    height: 100px; /* 设置高度 */
+  }
+
+  .github-link .el-icon {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    transform: translate(-50%, -50%); /* 进一步微调位置 */
+  }
+
 
 
 </style>
