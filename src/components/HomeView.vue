@@ -27,6 +27,44 @@
         @select="handleSelect"
     />
     </div>
+
+
+  <div class = 'content'>
+    <div class = 'content-1'>
+      <span >
+        <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+      </span>
+    </div>
+
+    <div class = 'content-2'>
+      
+    </div>
+
+    <div class = 'content-3'>
+      
+    </div>
+
+    <div class = 'content-4'>
+      
+    </div>
+
+    <div class = 'content-5'>
+      
+    </div>
+
+    <div class = 'content-6'>
+      
+    </div>
+
+    <div class = 'content-7'>
+      
+    </div>
+
+    <div class = 'content-8'>
+      
+    </div>
+
+  </div>
   </div>
   
 </template>
@@ -168,7 +206,7 @@
 
   .search{
     position: absolute;
-    top:40%;
+    top:15%;
     left: 20%;
     right: 20%;
   
@@ -226,6 +264,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    filter: blur(3px);
     z-index: -1; /* 确保背景图片在其他元素之下 */
   }
 
@@ -241,6 +280,106 @@
     top: 20%;
     left: 20%;
     transform: translate(-50%, -50%); /* 进一步微调位置 */
+  }
+
+  .content{
+    /* background-color: aquamarine; */
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    right: 10%;
+    height: 60%;
+    border-radius: 25px;
+  }
+
+  .content-1{
+    background-color:#475669;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 15%;
+    height: 40%;
+    border-radius: 10px;
+  }
+
+  .content-2{
+    background-color:#475669;
+    position: absolute;
+    top: 5%;
+    left: 30%;
+    width: 15%;
+    height: 40%;
+    border-radius: 10px;
+  }
+
+  .content-3{
+    background-color:#475669;
+    position: absolute;
+    top: 5%;
+    left: 55%;
+    width: 15%;
+    height: 40%;
+    border-radius: 10px;
+  }
+
+  .content-4{
+    background-color:#475669;
+    position: absolute;
+    top: 5%;
+    left: 80%;
+    width: 15%;
+    height: 40%;
+    border-radius: 10px;
+  }
+
+  .content-5{
+    background-color:#475669;
+    position: absolute;
+    top: 55%;
+    left: 5%;
+    width: 15%;
+    height: 40%;
+    border-radius: 10px;
+  }
+
+  .content-6{
+    background-color:#475669;
+    position: absolute;
+    top: 55%;
+    left: 30%;
+    width: 15%;
+    height: 40%;
+    border-radius: 10px;
+  }
+
+  .content-7{
+    background-color:#475669;
+    position: absolute;
+    top: 55%;
+    left: 55%;
+    width: 15%;
+    height: 40%;
+    border-radius: 10px;
+  }
+
+  .content-8{
+    background-color:#475669;
+    position: absolute;
+    top: 55%;
+    left: 80%;
+    width: 15%;
+    height: 40%;
+    border-radius: 10px;
+  }
+
+  .content-1-img{
+    background-color:aqua;
+    position: absolute;
+    width: 60%;
+    left: 1%;
+    top: 2%;
+    height: 96%;
+    border-radius: 10px;
   }
 
 
