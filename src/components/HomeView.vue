@@ -15,6 +15,7 @@
         <el-icon :size="20"><Bicycle/></el-icon>
       </a>
     </div>
+
     
     
     
@@ -30,52 +31,27 @@
 
 
     <div class = 'content'>
-      <div class = 'content-book'>
-        <span >
-          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
-        </span>
-      </div>
-
-      <div class = 'content-book'>
-        <span >
-          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
-        </span>
-      </div>
-
-      <div class = 'content-book'>
-        <span >
-          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
-        </span>
-      </div>
-
-      <div class = 'content-book'>
-        <span >
-          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
-        </span>
-      </div>
-
-      <div class = 'content-book'>
-        <span >
-          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
-        </span>
-      </div>
-
-      <div class = 'content-book'>
-        <span >
-          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
-        </span>
-      </div>
-
-      <div class = 'content-book'>
-        <span >
-          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
-        </span>
-      </div>
-
-      <div class = 'content-book'>
-        <span >
-          <img src="@/assets/imgs/2.jpg" class = "content-1-img">
-        </span>
+      <div v-for="(item, index) in 8" :key="index" class="div-block">
+        <div class="content-book">
+          <span class = 'book-img'>
+            <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+          </span>
+          <span class = "book-title">
+            <h6  >深入理解Java虚拟机(原书第三版)</h6>
+            <br>
+            <h6> <i>周志华 / 人民邮电出版社 / 2018年出版</i> </h6>
+            <br>
+          </span>
+          <span class = "book-rate">
+              <el-rate 
+                v-model="value"
+                disabled
+                show-score
+                text-color="#ff9900"
+                score-template="{value}"
+              />
+          </span>
+        </div>
       </div>
     
     </div>
@@ -96,7 +72,7 @@
   import {hotBooks} from "@/api/book"
 
 
-
+  const value = ref(3.7);
   // 走马灯图片
   // const items =  [
   //     { id:1,src: getImageUrl("1") },
@@ -226,6 +202,7 @@
   }
 
 
+
   .small.justify-center {
     text-align: center; 
   }
@@ -296,111 +273,42 @@
   }
 
   .content{
-    /* background-color: aquamarine; */
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 20% 20% 20% 20%;
     position: absolute;
     top: 30%;
     left: 10%;
     right: 10%;
     height: 60%;
     border-radius: 25px;
-    background-color: #475669;
+    grid-column-start: 10;
+    grid-column-end: 90%;
+    row-gap: 10px;
+    column-gap: 50px;
+    justify-content: center;
   }
 
   .content-book{
-    background-color: aqua;
-    position:relative;
-    left: 10%;
-    right: 10%;
-    width: 80%;
-    top: 15%;
-    height: 70%;
+    position: relative;
+    top:5%;
+    height: 90%;
+    left: 3%;
+    width: 94%;
+    background-color:whitesmoke;
     border-radius: 10px;
   }
 
-  /* .content-1{
-    background-color:#475669;
-    position: absolute;
-    top: 5%;
-    left: 5%;
-    width: 15%;
-    height: 40%;
+  .book-img{
+    position:absolute;
+    left:1%;
+    width: 85%;
+    top: 1%;
+    height:98%;
     border-radius: 10px;
   }
 
-  .content-2{
-    background-color:#475669;
-    position: absolute;
-    top: 5%;
-    left: 30%;
-    width: 15%;
-    height: 40%;
-    border-radius: 10px;
-  }
-
-  .content-3{
-    background-color:#475669;
-    position: absolute;
-    top: 5%;
-    left: 55%;
-    width: 15%;
-    height: 40%;
-    border-radius: 10px;
-  }
-
-  .content-4{
-    background-color:#475669;
-    position: absolute;
-    top: 5%;
-    left: 80%;
-    width: 15%;
-    height: 40%;
-    border-radius: 10px;
-  }
-
-  .content-5{
-    background-color:#475669;
-    position: absolute;
-    top: 55%;
-    left: 5%;
-    width: 15%;
-    height: 40%;
-    border-radius: 10px;
-  }
-
-  .content-6{
-    background-color:#475669;
-    position: absolute;
-    top: 55%;
-    left: 30%;
-    width: 15%;
-    height: 40%;
-    border-radius: 10px;
-  }
-
-  .content-7{
-    background-color:#475669;
-    position: absolute;
-    top: 55%;
-    left: 55%;
-    width: 15%;
-    height: 40%;
-    border-radius: 10px;
-  }
-
-  .content-8{
-    background-color:#475669;
-    position: absolute;
-    top: 55%;
-    left: 80%;
-    width: 15%;
-    height: 40%;
-    border-radius: 10px;
-  } */
 
   .content-1-img{
-    background-color:aqua;
     position: absolute;
     width: 60%;
     left: 1%;
@@ -408,6 +316,29 @@
     height: 96%;
     border-radius: 10px;
   }
+
+  .book-title{
+    position: absolute;
+    top: 5%;
+    left: 57%;
+    width: 37%;
+  }
+
+  .book-rate {
+    position: absolute;
+    left: 57%;
+    top: 75%;
+  }
+
+  .el-rate {
+    position: absolute;
+    left: 0%;
+    right: 5%;
+    .el-rate__icon {
+      font-size: 10px; 
+    }
+  }
+
 
 
 
