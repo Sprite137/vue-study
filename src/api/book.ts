@@ -4,11 +4,22 @@ import { get, post } from '../utils/request';
 
 const api = {
     hotBooks: '/book/hotBooks',
+    homeBooks: '/book/homeBooks',
 }
 
 //热门书籍
 const hotBooks = (params: any) => {
     return get(api.hotBooks, params).then((res: any) => {
+        if (res.code === 200) {
+            return Promise.resolve(res.data);
+        }
+        return Promise.resolve(res);
+    })
+    
+}
+
+const homeBooks = (params: any) => {
+    return get(api.homeBooks, params).then((res: any) => {
         if (res.code === 200) {
             return Promise.resolve(res.data);
         }
@@ -27,5 +38,5 @@ const hotBooks = (params: any) => {
 
 
 export {
-    hotBooks
+    hotBooks, homeBooks
 }

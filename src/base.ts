@@ -1,3 +1,5 @@
+import type { S } from "vitest/dist/chunks/config.Crbj2GAb.js"
+
 export interface bookData{//用户表对应的接口
     id:number
     title:string
@@ -26,3 +28,14 @@ export interface BakckendBookItem {
     updateBy: string;
     viewCount: number;
 }
+
+interface HomeIndexDetail{
+    title:string;
+    author:string;
+    publishingHouse:string;
+    publishingTime:string;
+    rate:number
+    img_src:string
+}
+
+export type HomeIndexBooksList = Array<HomeIndexDetail>;

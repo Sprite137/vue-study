@@ -30,21 +30,22 @@
     </div>
 
 
+    <!-- 内容栏 -->
     <div class = 'content'>
-      <div v-for="(item, index) in 8" :key="index" class="div-block">
+      <div v-for="(item, index) in books_detail" :key="index" class="div-block">
         <div class="content-book">
           <span class = 'book-img'>
-            <img src="@/assets/imgs/2.jpg" class = "content-1-img">
+            <img :src="item.img_src" alt ="暂未存在图片" class= "content-1-img">
           </span>
           <span class = "book-title">
-            <h6  >深入理解Java虚拟机(原书第三版)</h6>
+            <h6  >{{ item.title }}</h6>
             <br>
-            <h6> <i>周志华 / 人民邮电出版社 / 2018年出版</i> </h6>
+            <h6> <i>{{ item.author }} / {{item.publishingHouse}} / {{ item.publishingTime }}</i> </h6>
             <br>
           </span>
           <span class = "book-rate">
               <el-rate 
-                v-model="value"
+                v-model=item.rate
                 disabled
                 show-score
                 text-color="#ff9900"
@@ -67,12 +68,11 @@
 
 <script lang="ts" setup>
   import {onMounted, ref} from 'vue'
-  import {type BookItem, type BakckendBookItem, type BookItems} from '../base'
+  import {type HomeIndexBooksList, type BakckendBookItem, type BookItems, type BookItem} from '../base'
   import router from '@/router'
-  import {hotBooks} from "@/api/book"
+  import {hotBooks, homeBooks} from "@/api/book"
+import { it } from 'element-plus/es/locales.mjs';
 
-
-  const value = ref(3.7);
   // 走马灯图片
   // const items =  [
   //     { id:1,src: getImageUrl("1") },
@@ -87,6 +87,17 @@
   
 
   const state = ref('')
+
+  const books_detail = ref<HomeIndexBooksList>([
+    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机",rate:3.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机",rate:2.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机",rate:1.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
+    ])
 
 
   const searchTips = ref<BookItems>([])
@@ -139,10 +150,21 @@
     }
   }
 
+  async function featchHomeBooks() {
+    try{
+      const response = await homeBooks({})
+      console.log("homeBooks",response)
+      books_detail.value = convertHomeBooks(response);
+    }
+    catch( error){
+      console.error('Failed to fetch data:', error);
+    }
+  }
+
   onMounted(() => {
     searchTips.value = loadAll()
     fetchDataAndConvert()
-    console.log(searchTips)
+    featchHomeBooks()
   })
 
 
@@ -153,6 +175,17 @@
     return books.map(book => ({
       value: book.title,
       author: book.author
+    }));
+  }
+
+  function convertHomeBooks(homeBooks: HomeIndexBooksList): HomeIndexBooksList {
+    return homeBooks.map(homeBook => ({
+      title: homeBook.title,
+      author: homeBook.author,
+      rate:homeBook.rate,
+      img_src:homeBook.img_src,
+      publishingHouse:homeBook.publishingHouse,
+      publishingTime:homeBook.publishingTime
     }));
   }
 
