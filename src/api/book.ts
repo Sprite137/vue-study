@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { get, post } from '../utils/request';
+import { get } from '../utils/request';
 
 
 const api = {

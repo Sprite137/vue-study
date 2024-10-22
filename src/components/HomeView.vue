@@ -10,11 +10,18 @@
       </el-carousel>
     </div> -->
 
-    <div class="github-link">
-      <a href = "https://github.com/Sprite137" target="_blank">
-        <el-icon :size="20"><Bicycle/></el-icon>
-      </a>
+    <div class = "icon-container">
+        <a href = "https://github.com/Sprite137" target="_blank">
+          <el-icon><CoffeeCup /></el-icon>
+        </a>
+
+        <div @click="handleLoginIconClick">
+          <el-icon><UserFilled /></el-icon>
+        </div>
+
     </div>
+
+    
 
     
     
@@ -71,20 +78,7 @@
   import {type HomeIndexBooksList, type BakckendBookItem, type BookItems, type BookItem} from '../base'
   import router from '@/router'
   import {hotBooks, homeBooks} from "@/api/book"
-import { it } from 'element-plus/es/locales.mjs';
 
-  // 走马灯图片
-  // const items =  [
-  //     { id:1,src: getImageUrl("1") },
-  //     { id:2,src: getImageUrl("2") },
-  //     { id:3,src: getImageUrl("3") },
-  // ]
-
-  // function getImageUrl(name:string) {
-  //   return new URL(`/src/assets/imgs/${name}.jpg`, import.meta.url).href
-  // } 
-
-  
 
   const state = ref('')
 
@@ -166,6 +160,11 @@ import { it } from 'element-plus/es/locales.mjs';
     fetchDataAndConvert()
     featchHomeBooks()
   })
+
+  function handleLoginIconClick(){
+    console.log("点击了登录")
+    router.push('/login')
+  }
 
 
 
@@ -291,18 +290,19 @@ import { it } from 'element-plus/es/locales.mjs';
     z-index: -1; /* 确保背景图片在其他元素之下 */
   }
 
-  .github-link{
-    position: absolute; /* 或者使用 absolute, fixed 等 */
-    right: 1%;
-    width: 100px; /* 设置宽度 */
-    height: 100px; /* 设置高度 */
+  .icon-container {
+    display: flex; /* 使用 Flexbox 布局 */
+    justify-content: center; /* 水平居中对齐 */
+    gap: 10px; /* 图标之间的间距 */
+    align-items: center; /* 垂直居中对齐 */
+    position: absolute;
+    top: 1%;
+    left: 95%;
   }
 
-  .github-link .el-icon {
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    transform: translate(-50%, -50%); /* 进一步微调位置 */
+  .icon-container .el-icon {
+    font-size: 20px;
+    cursor: pointer;
   }
 
   .content{

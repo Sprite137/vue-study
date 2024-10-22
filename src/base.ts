@@ -1,4 +1,3 @@
-import type { S } from "vitest/dist/chunks/config.Crbj2GAb.js"
 
 export interface bookData{//用户表对应的接口
     id:number

@@ -4,15 +4,15 @@
 import { get, post } from '../utils/request';
 
 const api = {
-    login: '/api/user/login',
-    users: '/api/user/info'
+    login: 'user/login',
+    users: 'user/info'
 }
 
 //登录
 export const login = (params: any) => {
     return post(api.login, params).then((res: any) => {
         if (res.code === 200) {
-            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('token', "token");
         }
         return Promise.resolve(res);
     })

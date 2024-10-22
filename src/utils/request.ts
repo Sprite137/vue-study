@@ -18,11 +18,8 @@ request.interceptors.request.use(
         
         // 请求头携带token
         config.headers['token'] = localStorage.getItem('token') || ''
+        config.headers['Content-Type'] = 'application/json'
 
-        // 在发送请求之前做些什么
-        console.log('我要准备请求啦------')
-        console.log(config, '请求配置')
-        
         return config;
     },
     function (error) {
@@ -36,9 +33,7 @@ request.interceptors.response.use(
     function (response) {
         // 对响应数据做点什么
         if (response.status === 200) {
-            console.log('我接收到响应数据啦------')
-            console.log(response.data, '响应配置')
-            return Promise.resolve(response.data)
+            return Promise.resolve(response)
         } else {
             return Promise.reject(response)
         }
