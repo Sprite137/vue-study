@@ -101,7 +101,7 @@ export function get(url:string, params = {}) {
             method: 'get',
             params: params
         }).then(response => {
-            resolve(response);
+            resolve(response.data);
         }).catch(error => {
             reject(error);
         });
@@ -120,7 +120,7 @@ export function post(url:string, params = {}) {
             method: 'post',
             data: params
         }).then(response => {
-            resolve(response);
+            resolve(response.data);
         }).catch(error => {
             reject(error);
         });

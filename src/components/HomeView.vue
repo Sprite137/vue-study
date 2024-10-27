@@ -19,12 +19,7 @@
           <el-icon><UserFilled /></el-icon>
         </div>
 
-    </div>
-
-    
-
-    
-    
+      </div>
     
     <!-- 搜索栏 -->
     <div class="search">
@@ -42,7 +37,7 @@
       <div v-for="(item, index) in books_detail" :key="index" class="div-block">
         <div class="content-book">
           <span class = 'book-img'>
-            <img :src="item.img_src" alt ="暂未存在图片" class= "content-1-img">
+            <img :src="getImageUrl(item.imgSrc)" alt ="暂未存在图片" class= "content-1-img">
           </span>
           <span class = "book-title">
             <h6  >{{ item.title }}</h6>
@@ -78,19 +73,21 @@
   import {type HomeIndexBooksList, type BakckendBookItem, type BookItems, type BookItem} from '../base'
   import router from '@/router'
   import {hotBooks, homeBooks} from "@/api/book"
+  import {getImageUrl} from "@/utils/getImgUrl"
+import { getUserInfo } from '@/api/user'
 
 
   const state = ref('')
 
   const books_detail = ref<HomeIndexBooksList>([
-    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机",rate:3.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机",rate:2.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机",rate:1.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",img_src : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机",rate:3.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机",rate:2.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机",rate:1.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
     ])
 
 
@@ -138,7 +135,7 @@
   async function fetchDataAndConvert() {
     try {
       const response = await hotBooks({})
-      searchTips.value = convertBooksToData(response);
+      searchTips.value = convertBooksToData(response.data);
     } catch (error) {
       console.error('Failed to fetch data:', error);
     }
@@ -147,8 +144,8 @@
   async function featchHomeBooks() {
     try{
       const response = await homeBooks({})
-      console.log("homeBooks",response)
-      books_detail.value = convertHomeBooks(response);
+      books_detail.value = convertHomeBooks(response.data);
+      console.log("book",books_detail)
     }
     catch( error){
       console.error('Failed to fetch data:', error);
@@ -161,14 +158,11 @@
     featchHomeBooks()
   })
 
-  function handleLoginIconClick(){
-    console.log("点击了登录")
-    router.push('/login')
+  async function handleLoginIconClick(){
+      router.push('/user')
+    
   }
 
-
-
-  
 
   function convertBooksToData(books: BakckendBookItem[]): BookItems {
     return books.map(book => ({
@@ -182,7 +176,7 @@
       title: homeBook.title,
       author: homeBook.author,
       rate:homeBook.rate,
-      img_src:homeBook.img_src,
+      imgSrc:homeBook.imgSrc,
       publishingHouse:homeBook.publishingHouse,
       publishingTime:homeBook.publishingTime
     }));

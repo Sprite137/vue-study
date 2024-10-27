@@ -20,8 +20,13 @@ export const login = (params: any) => {
 
 
 //获取用户信息
-export const getUserInfo = () => {
+export const getUserInfo = (params:any) => {
     const token = localStorage.getItem('token');
     if (!token) return Promise.reject(new Error('用户未登录'));
-    return get(api.users);
+    return get(api.users,params).then((res: any) => {
+        if (res.code === 200) {
+            return Promise.resolve(res);
+        }
+        return Promise.resolve(res);
+    })
 }

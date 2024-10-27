@@ -38,11 +38,11 @@
     async function handleSubmit() {
         try{
             const response = await login(state.value);
-            if(response.data.code == 200){
-                router.push('/detail')
+            if(response.code == 200){
+                router.push('/user')
             }
             else{
-                router.push("/home")
+                alert(response.msg)
             }
         }
         catch(error){
@@ -60,6 +60,7 @@
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=YOUR_APP_ID&redirect_uri=http%3A%2F%2Fexample.com%2Fcallback&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
       // 替换 YOUR_APP_ID 为你的微信应用的 AppID
     };
+
 </script>
 
 <style scoped>

@@ -34,7 +34,17 @@ interface HomeIndexDetail{
     publishingHouse:string;
     publishingTime:string;
     rate:number
-    img_src:string
+    imgSrc:string
 }
 
 export type HomeIndexBooksList = Array<HomeIndexDetail>;
+
+export interface UserInfo {
+    userName: string;
+    email: string;
+    joinDate: string;
+    avatarUrl: string;
+    postsCount: number;
+    followersCount: number;
+    followingCount: number;
+}

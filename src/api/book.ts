@@ -11,7 +11,7 @@ const api = {
 const hotBooks = (params: any) => {
     return get(api.hotBooks, params).then((res: any) => {
         if (res.code === 200) {
-            return Promise.resolve(res.data);
+            return Promise.resolve(res);
         }
         return Promise.resolve(res);
     })
@@ -21,20 +21,12 @@ const hotBooks = (params: any) => {
 const homeBooks = (params: any) => {
     return get(api.homeBooks, params).then((res: any) => {
         if (res.code === 200) {
-            return Promise.resolve(res.data);
+            return Promise.resolve(res);
         }
         return Promise.resolve(res);
     })
     
 }
-
-
-//获取用户信息
-// export const getUserInfo = () => {
-//     const token = localStorage.getItem('token');
-//     if (!token) return Promise.reject(new Error('用户未登录'));
-//     return get(api.users);
-// }
 
 
 export {
