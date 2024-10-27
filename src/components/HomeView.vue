@@ -74,7 +74,6 @@
   import router from '@/router'
   import {hotBooks, homeBooks} from "@/api/book"
   import {getImageUrl} from "@/utils/getImgUrl"
-import { getUserInfo } from '@/api/user'
 
 
   const state = ref('')

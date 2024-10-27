@@ -23,6 +23,12 @@
       </div>
     </div>
 
+    <br>
+    <div >
+        <ContribtuionChart :dataSources="mockData" show-footer class = "contribtuion-chart"/>
+    </div>
+    
+    <br>
     <div class="processBox">
     <div class="title" >~~~~~~Life Flow~~~~~~</div>
     <div class="timelineProcessBox">
@@ -54,6 +60,14 @@
     import {getImageUrl} from "@/utils/getImgUrl"
     import { getUserInfo } from "@/api/user";
     import router from "@/router";
+    import { generateChartData, type DateItem } from "@/utils/Calender";
+    import ContribtuionChart from "@/components/ContributionCalendar.vue";
+
+    const mockData = generateChartData("2021-01-01", "2025-12-31")
+    .dates.flat()
+    .reduce<Record<string, DateItem & { level?: number }>>((prev, item) => {
+        return { ...prev, [item.full]: { ...item, level: Math.round(Math.random() * 3) } };
+    }, {});
 
 
     const userInfo = ref<UserInfo>({
@@ -139,6 +153,12 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         max-width: 500px;
         margin: 0 auto;
+    }
+
+    .contribtuion-chart{
+        position: relative;
+        margin: auto;
+        top:100%;
     }
 
     .avatar {
