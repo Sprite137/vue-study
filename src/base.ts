@@ -48,3 +48,14 @@ export interface UserInfo {
     followersCount: number;
     followingCount: number;
 }
+
+export interface BookDetail{
+    title:string;
+    author:string;
+    rate:number;
+    isbn:string;
+    intro:string;
+    publishingHouse:string;
+    publishingTime:string;
+    pages: number;
+}

@@ -34,7 +34,7 @@
 
     <!-- 内容栏 -->
     <div class = 'content'>
-      <div v-for="(item, index) in books_detail" :key="index" class="div-block">
+      <div v-for="(item, index) in books_detail" :key="index" class="div-block" @click="intoDetail(item.title)">
         <div class="content-book">
           <span class = 'book-img'>
             <img :src="getImageUrl(item.imgSrc)" alt ="暂未存在图片" class= "content-1-img">
@@ -179,6 +179,10 @@
       publishingHouse:homeBook.publishingHouse,
       publishingTime:homeBook.publishingTime
     }));
+  }
+
+  function intoDetail(title:string){
+    router.push("/Detail?"+title)
   }
 
         
