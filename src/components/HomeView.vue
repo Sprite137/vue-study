@@ -103,9 +103,7 @@
       { value: 'babel', author: 'https://github.com/babel/babel' },
     ])
 
-    
-    const isPlaying = ref<boolean>(false);
-    const audio = ref();
+  
 
 
 
@@ -161,10 +159,6 @@
     searchTips.value = loadAll()
     fetchDataAndConvert()
     featchHomeBooks()
-    if(audio.value){
-      audio.value.play()
-      isPlaying.value = !isPlaying.value;
-    }
   })
 
   async function handleLoginIconClick(){

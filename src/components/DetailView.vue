@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class = "layout">
-            <div class = "box box_img"> img </div>
+            <div  class = "box box_img">
+                <img :src="getImageUrl(bookDetail.imgSrc)" style="object-fit:cover"/>
+            </div>
             <div class = "box box_content">
                 <!-- 标题栏 -->
                 <div class = "content_xx ">
@@ -12,9 +14,15 @@
                         <h4>
                             {{bookDetail.author}}
                         </h4>
-                    <h4>
-                        {{bookDetail.rate}}
-                    </h4>
+                        <span class = "book-rate">
+                            <el-rate 
+                                v-model=bookDetail.rate
+                                disabled
+                                show-score
+                                text-color="#ff9900"
+                                score-template="{value}"
+                            />
+                        </span>
                     </div>
                 </div>
 
@@ -25,7 +33,21 @@
 
                 <!-- 信息栏 -->
                 <div class = "content_xx content_isbn">
-                    这里是书籍信息栏
+                    <div>
+                        出版社: {{ bookDetail.publishingHouse }}
+                    </div>
+                    <div>
+                        出版时间: {{ bookDetail.publishingTime }}
+                    </div>
+                    <div>
+                        分类: xxx
+                    </div>
+                    <div>
+                        ISBN: {{bookDetail.isbn}}
+                    </div>
+                    <div>
+                        页数: {{bookDetail.pages}}
+                    </div>
                 </div>
             </div>
 
@@ -43,16 +65,18 @@
 <script setup lang="ts">
     import { type BookDetail } from '@/base';
     import {ref} from "vue"
+    import { getImageUrl } from '@/utils/getStaticAssets';
 
     const bookDetail = ref<BookDetail>({
         title:"亲密关系(十周年纪念版)",
         author:"罗兰-米勒, Rowsland S.miller",
-        rate:5.0,
+        rate:2.0,
         isbn:"xxxxxxxxx",
         intro:"亲密关系与泛泛之交有什么区别；大丈夫与小女子真的般配吗；吸引力的秘密是什么；男人与女人真的是不同的动物吗；同性恋真的是由基因决定的吗；单亲家庭的孩子长大后更容易离婚吗……什么是爱情？由什么构成？能持续多久？两性在发生一夜情及选择终身伴侣上有什么差异？爱情和性欲是由不同的脑区控制吗？亲密关系美满的秘诀是什么？有什么方法能让婚姻持续一生？米勒教授在《亲密关系》中回答了这些问题，尤其澄清了通俗心理学所宣扬的经验之谈，甚至某些错误观点。",
         publishingHouse:"人民邮电出版社",
         publishingTime:"2015-06",
         pages: 540,
+        imgSrc:"wedh.jpg"
     })
 </script>
 
@@ -69,7 +93,6 @@
     }
 
     .layout .box{
-        background-color: aqua;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -78,7 +101,6 @@
     }
 
     .layout .box_content{
-        background-color:aquamarine;
         grid-column: 2/4;
         display: grid;
         grid-template-rows: repeat(4,1fr);
@@ -109,6 +131,13 @@
     }
 
     .box_content .content_isbn{
+        display: grid;
+    }
+
+    .content_title .book-rate{
+        position: absolute;
+        left: 0%;
+        top:50%
     }
 
     

@@ -58,4 +58,5 @@ export interface BookDetail{
     publishingHouse:string;
     publishingTime:string;
     pages: number;
+    imgSrc:string;
 }
