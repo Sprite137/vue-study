@@ -45,7 +45,6 @@
   import axios from 'axios';
   import {type Books} from '../base'
   import {login,getUserInfo} from "../api/user"
-  import router from '@/router'
 
   onBeforeMount(async () => {
   // 登录
@@ -56,7 +55,7 @@
   console.log(user)
   
   // 获取用户信息
-  const users = await getUserInfo()
+  const users = await getUserInfo({})
   console.log(users)
 })
 

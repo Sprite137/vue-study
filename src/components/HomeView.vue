@@ -9,6 +9,7 @@
         </el-carousel-item>
       </el-carousel>
     </div> -->
+    <MusicPlayer></MusicPlayer>
 
     <div class = "icon-container">
         <a href = "https://github.com/Sprite137" target="_blank">
@@ -73,7 +74,7 @@
   import {type HomeIndexBooksList, type BakckendBookItem, type BookItems, type BookItem} from '../base'
   import router from '@/router'
   import {hotBooks, homeBooks} from "@/api/book"
-  import {getImageUrl} from "@/utils/getImgUrl"
+  import {getImageUrl} from "@/utils/getStaticAssets"
 
 
   const state = ref('')
@@ -102,6 +103,12 @@
       { value: 'vue-router', author: 'https://github.com/vuejs/vue-router' },
       { value: 'babel', author: 'https://github.com/babel/babel' },
     ])
+
+    
+    const isPlaying = ref<boolean>(false);
+    const audio = ref();
+
+
 
 
   let timeout: ReturnType<typeof setTimeout>
@@ -155,6 +162,10 @@
     searchTips.value = loadAll()
     fetchDataAndConvert()
     featchHomeBooks()
+    if(audio.value){
+      audio.value.play()
+      isPlaying.value = !isPlaying.value;
+    }
   })
 
   async function handleLoginIconClick(){
@@ -326,6 +337,11 @@
     width: 94%;
     background-color:whitesmoke;
     border-radius: 10px;
+    transition: transform 0.3s ease; /* 添加过渡效果 */
+  }
+
+  .content-book:hover{
+    transform: scale(1.1);
   }
 
   .book-img{

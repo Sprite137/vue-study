@@ -57,7 +57,7 @@
 <script setup lang="ts">
     import {onMounted, ref} from "vue"
     import { type UserInfo } from "@/base";
-    import {getImageUrl} from "@/utils/getImgUrl"
+    import {getImageUrl} from "@/utils/getStaticAssets"
     import { getUserInfo } from "@/api/user";
     import router from "@/router";
     import { generateChartData, type DateItem } from "@/utils/Calender";
