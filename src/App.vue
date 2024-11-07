@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import MusicPlayer from './components/MusicPlayer.vue';
+
 </script>
 
 <!-- <template>
@@ -17,6 +19,7 @@
 <template>
   <div class="app">
     <RouterView></RouterView>
+    <MusicPlayer></MusicPlayer>
   </div>
   
 </template>

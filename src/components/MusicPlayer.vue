@@ -1,9 +1,11 @@
 <template>
     <div >
-      <audio ref="audio" :src='getAudioUrl("素颜.mp3")'  @ended="nextTrack"></audio>
-      <div>
-        <button @click="togglePlay" class="music-player">{{ currentTrack.title }}</button>
-      </div>
+        <audio ref="audio" :src='getAudioUrl("素颜.mp3")'  @ended="nextTrack"></audio>
+        <div>
+            <button @click="togglePlay" class="music-player">{{ currentTrack.title }}</button>
+        </div>
+
+      
     </div>
 </template>
 

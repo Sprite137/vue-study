@@ -9,7 +9,6 @@
         </el-carousel-item>
       </el-carousel>
     </div> -->
-    <MusicPlayer></MusicPlayer>
 
     <div class = "icon-container">
         <a href = "https://github.com/Sprite137" target="_blank">
