@@ -2,7 +2,7 @@
     <div>
         <div class = "layout">
             <div  class = "box box_img">
-                <img :src="getImageUrl(bookDetail.imgSrc)" style="object-fit:cover"/>
+                <img :src="getImageUrl(bookDetail.imgSrc)" class="img"/>
             </div>
             <div class = "box box_content">
                 <!-- 标题栏 -->
@@ -40,7 +40,7 @@
                         出版时间: {{ bookDetail.publishingTime }}
                     </div>
                     <div>
-                        分类: xxx
+                        分类: {{bookDetail.tag}}
                     </div>
                     <div>
                         ISBN: {{bookDetail.isbn}}
@@ -64,8 +64,9 @@
 
 <script setup lang="ts">
     import { type BookDetail } from '@/base';
-    import {ref} from "vue"
+    import {onMounted, ref} from "vue"
     import { getImageUrl } from '@/utils/getStaticAssets';
+    import { getBookDetail } from '@/api/book';
 
     const bookDetail = ref<BookDetail>({
         title:"亲密关系(十周年纪念版)",
@@ -76,7 +77,24 @@
         publishingHouse:"人民邮电出版社",
         publishingTime:"2015-06",
         pages: 540,
-        imgSrc:"wedh.jpg"
+        imgSrc:"wedh.jpg",
+        tag:"hello"
+    })
+
+    async function requestBookDetail(){
+        try{
+            const searchParams = new URLSearchParams(window.location.search);
+            const response = await getBookDetail({bookId:searchParams.get("bookId")});
+            console.log(response)
+            bookDetail.value = response.data
+        }
+        catch(error){
+            console.error('Failed to fetch bookDetail:', error);
+        }
+    }
+
+    onMounted(() =>{
+        requestBookDetail()
     })
 </script>
 
@@ -98,6 +116,19 @@
         justify-content: center;
         border-radius: 10px;
         
+    }
+
+    .box_img{
+        position: relative;
+    }
+
+    .box_img .img{
+        position: absolute; /* 设置绝对定位，使img能够覆盖整个div区域 */
+        top: 0;
+        left: 0;
+        width: 100%; /* 设置img的宽度为100% */
+        height: 100%; /* 设置img的高度为100% */
+        object-fit: cover; /* 保持图片的纵横比，同时覆盖整个div区域，可能会裁剪图片 */
     }
 
     .layout .box_content{

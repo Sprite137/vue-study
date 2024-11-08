@@ -28,13 +28,14 @@ export interface BakckendBookItem {
     viewCount: number;
 }
 
-interface HomeIndexDetail{
+export interface HomeIndexDetail{
     title:string;
     author:string;
     publishingHouse:string;
     publishingTime:string;
     rate:number
     imgSrc:string
+    bookId:string
 }
 
 export type HomeIndexBooksList = Array<HomeIndexDetail>;
@@ -59,4 +60,5 @@ export interface BookDetail{
     publishingTime:string;
     pages: number;
     imgSrc:string;
+    tag:string;
 }

@@ -5,6 +5,7 @@ import { get } from '../utils/request';
 const api = {
     hotBooks: '/book/hotBooks',
     homeBooks: '/book/homeBooks',
+    getBookDetail:"/book/bookDetail"
 }
 
 //热门书籍
@@ -28,7 +29,17 @@ const homeBooks = (params: any) => {
     
 }
 
+const getBookDetail = (params: any) => {
+    return get(api.getBookDetail, params).then((res: any) => {
+        if (res.code === 200) {
+            return Promise.resolve(res);
+        }
+        return Promise.resolve(res);
+    })
+    
+}
+
 
 export {
-    hotBooks, homeBooks
+    hotBooks, homeBooks, getBookDetail
 }

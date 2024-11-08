@@ -34,7 +34,7 @@
 
     <!-- 内容栏 -->
     <div class = 'content'>
-      <div v-for="(item, index) in books_detail" :key="index" class="div-block" @click="intoDetail(item.title)">
+      <div v-for="(item, index) in books_detail" :key="index" class="div-block" @click="intoDetail(item)">
         <div class="content-book">
           <span class = 'book-img'>
             <img :src="getImageUrl(item.imgSrc)" alt ="暂未存在图片" class= "content-1-img">
@@ -70,7 +70,7 @@
 
 <script lang="ts" setup>
   import {onMounted, ref} from 'vue'
-  import {type HomeIndexBooksList, type BakckendBookItem, type BookItems, type BookItem} from '../base'
+  import {type HomeIndexDetail, type HomeIndexBooksList, type BakckendBookItem, type BookItems, type BookItem} from '../base'
   import router from '@/router'
   import {hotBooks, homeBooks} from "@/api/book"
   import {getImageUrl} from "@/utils/getStaticAssets"
@@ -79,14 +79,7 @@
   const state = ref('')
 
   const books_detail = ref<HomeIndexBooksList>([
-    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机",rate:3.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机",rate:2.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机",rate:1.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
-    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg"},
+    {author:"aaa",title : "深入理解java虚拟机(原书第三版)",rate:4.7,publishingHouse:"人民邮电出版社",publishingTime:"2016年9月",imgSrc : "@/assets/imgs/2.jpg",bookId:"1"},
     ])
 
 
@@ -131,7 +124,7 @@
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSelect = (item: Record<string, any>) => {
-    console.log(item)
+    console.log("item",item)
     router.push("/detail")
   }
 
@@ -181,12 +174,13 @@
       rate:homeBook.rate,
       imgSrc:homeBook.imgSrc,
       publishingHouse:homeBook.publishingHouse,
-      publishingTime:homeBook.publishingTime
+      publishingTime:homeBook.publishingTime,
+      bookId:homeBook.bookId,
     }));
   }
 
-  function intoDetail(title:string){
-    router.push("/Detail?"+title)
+  function intoDetail(item:HomeIndexDetail){
+    router.push("/Detail?bookId="+item.bookId)
   }
 
         
@@ -278,7 +272,7 @@
   }
 
   .bg-image {
-    background-image: url('@/assets/imgs/1.jpg');
+    /* background-image: url('@/assets/imgs/2.jpg'); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
